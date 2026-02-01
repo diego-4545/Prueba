@@ -15,7 +15,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/items")
+@app.post("/items", response_model=schemas.ItemResponse)
 def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
     nuevo = models.Item(nombre=item.nombre)
     db.add(nuevo)
@@ -23,6 +23,6 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
     db.refresh(nuevo)
     return nuevo
 
-@app.get("/items")
+@app.get("/items", response_model=list[schemas.ItemResponse])
 def get_items(db: Session = Depends(get_db)):
     return db.query(models.Item).all()
