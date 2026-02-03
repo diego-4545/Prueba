@@ -26,3 +26,8 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
 @app.get("/items", response_model=list[schemas.ItemResponse])
 def get_items(db: Session = Depends(get_db)):
     return db.query(models.Item).all()
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
