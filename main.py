@@ -27,7 +27,7 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
 def get_items(db: Session = Depends(get_db)):
     return db.query(models.Item).all()
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "ok"}
 
